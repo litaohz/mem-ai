@@ -1,0 +1,7 @@
+{
+    "mcpServers": {
+        "figma-context":{
+            "url":"http://localhost:3333/sse"
+        }
+    }
+  }
