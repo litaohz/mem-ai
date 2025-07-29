@@ -1,0 +1,401 @@
+[FaaS System] starting user function at port 8000
+[FaaS System] setup user {UID:1000 GID:1000 AdditionalGids:[]}
+[FaaS System] pod is not in stand by mode, try load user code directly
+[FaaS System] using function "handler" from script "index" as function.
+[FaaS System] node runtime listen on 8000
+[FaaS System] Detected runtime version: 1.2.1.
+[FaaS System] Function initialized successfully.
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:09:44.057Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"0","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 295222a0-59b6-4711-87ea-335a121954e1
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726190944708892638D1603776A25',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726190947708892638D1603776AC7',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:09:52.937Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"1","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: f384ef7c-70d8-4c77-a312-1e1aac40e8ca
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619095206C9F505EA90E57238B7',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619095606C9F505EA90E572394A',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:01.993Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"2","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: bdfa1f48-8b99-4f6f-9c99-3e87c523acd7
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910020E20B94EA7417E762D33',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910050E20B94EA7417E762DDA',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:10.774Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"3","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: a787ccca-100d-4966-bf58-a5c1cbdb6bdc
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619101070C4E7C51DC86C82C1B5',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619101370C4E7C51DC86C82C26D',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:19.506Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"4","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 43533152-3afb-4712-8d06-e455d2b16222
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910196082FE15C397C179E842',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910226082FE15C397C179E8E2',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:28.185Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"5","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 872c0a22-5dc6-490a-96c3-c9892ab3f297
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191028FFCF8C0A2D191D7AB1B6',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191031FFCF8C0A2D191D7AB25A',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:36.896Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"6","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 5d8e3395-091b-43b4-aa28-7643a5ffc415
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191036411718F67B625078A2B1',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191040411718F67B625078A36E',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:45.586Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"7","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 7461de23-24b4-4a15-ada2-d20f0597bccf
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191045D028AA40D5622FA86E0B',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191048D028AA40D5622FA86EC4',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:10:54.163Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"8","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: a82910d0-fdac-4496-a821-afad585bb11a
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910541C24582100E79BA648B4',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261910571C24582100E79BA6498B',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:11:02.781Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"9","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: f3d6a327-7d1c-4889-a880-032bd648462d
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191102B2BF84B6F02F34722E1C',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726191105B2BF84B6F02F34722EBF',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2","time":"2025-07-26T11:11:11.418Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMTowOToxMFoiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCJlYTkyNzIxOWI0MDlmNjQ3MTE4Mjc5NDJiZGU4NzM3Y1wiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzVlNGZhYmNkLWQ3NWMtNDQwNC1iMmNiLWY5Zjk4N2M2YzMxOC81ZTRmYWJjZC1kNzVjLTQ0MDQtYjJjYi1mOWY5ODdjNmMzMTgud2VibSIsInNpemUiOjE0Njk5M30sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0NTM0NyJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6ImEyZTAxODRiNzU2M2UyMTY4ODRiNzU2LWJjNzJkMDgtMXVmY202LVB1Ty1jYi10b3MtMWF6LWZyb250LWF6Yy0yIn0sInVzZXJJZGVudGl0eSI6eyJwcmluY2lwYWxJZCI6InRybjppYW06OjIxMDkwODg5MTA6cm9vdCJ9fX1dfQ==","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"6","partition":"1","retriesforbadstatusrequests":"10","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:09:10Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"ea927219b409f64711827942bde8737c\"","key":"recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm","size":146993},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:45347"},"responseElements":{"requestId":"a2e0184b7563e216884b756-bc72d08-1ufcm6-PuO-cb-tos-1az-front-azc-2"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Object key: recordings/2025/07/5e4fabcd-d75c-4404-b2cb-f9f987c6c318/5e4fabcd-d75c-4404-b2cb-f9f987c6c318.webm
+Extracted Recording ID: 5e4fabcd-d75c-4404-b2cb-f9f987c6c318
+Request ID: 02ec1be1-2691-4bae-9d5a-3eef6b6dd03b
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619111128581389DDA9A3A55BB0',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '2025072619111428581389DDA9A3A55C6F',
+  data: {
+    audio_info: { duration: 9120 },
+    result: {
+      additions: [Object],
+      text: '现在是北京时间7:09感觉这个成功功能已经要成功。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京时间7:09感觉这个成功功能已经要成功。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"87d90184bb41a4cf6884bb41-b23e637-1ufd2H-PuO-cb-tos-1az-front-aza-1","time":"2025-07-26T11:26:26.177Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMToyNTo1M1oiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCIxNDkwNzI1NmE5ZDAzZDkxNGRhNjA5ZjgzY2FjZjg0NVwiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzNmMjZkZTZhLWE2YTEtNDIwOS05ZDc3LTdlZWZiMjM2YjZlMi8zZjI2ZGU2YS1hNmExLTQyMDktOWQ3Ny03ZWVmYjIzNmI2ZTIud2VibSIsInNpemUiOjEzNDQzNX0sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0MjA0MCJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6Ijg3ZDkwMTg0YmI0MWE0Y2Y2ODg0YmI0MS1iMjNlNjM3LTF1ZmQySC1QdU8tY2ItdG9zLTFhei1mcm9udC1hemEtMSJ9LCJ1c2VySWRlbnRpdHkiOnsicHJpbmNpcGFsSWQiOiJ0cm46aWFtOjoyMTA5MDg4OTEwOnJvb3QifX19XX0=","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"0","partition":"2","retriesforbadstatusrequests":"0","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:25:53Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"14907256a9d03d914da609f83cacf845\"","key":"recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm","size":134435},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:42040"},"responseElements":{"requestId":"87d90184bb41a4cf6884bb41-b23e637-1ufd2H-PuO-cb-tos-1az-front-aza-1"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm
+Object key: recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm
+Extracted Recording ID: 3f26de6a-a6a1-4209-9d77-7eefb236b6e2
+Request ID: d67d34df-dcd5-4649-b29d-91e9b42d2c6d
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261926261191C49BE79446A69EA3',
+  data: {}
+}
+第1次查询结果： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '202507261926291191C49BE79446A69F91',
+  data: {
+    audio_info: { duration: 8340 },
+    result: {
+      additions: [Object],
+      text: '现在是北京的时间7:25那么这个功能基本已经完成。',
+      utterances: [Array]
+    }
+  }
+}
+转写完成： 现在是北京的时间7:25那么这个功能基本已经完成。
+📞 发送回调到: https://223afc8d9014.ngrok-free.app/api/transcription-callback
+✅ 回调发送成功: 200
+[FaaS System] user request listener error: TypeError: Cannot convert undefined or null to object
+    at Function.entries (<anonymous>)
+    at renderResponse (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:116:37)
+    at Server.<anonymous> (/usr/local/lib/node_modules/@vefaas/runtime-node/dist/index.js:141:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+原始事件： {"id":"87d90184bb41a4cf6884bb41-b23e637-1ufd2H-PuO-cb-tos-1az-front-aza-1","time":"2025-07-26T11:26:34.888Z","type":"faas.tos.event","source":"/faas/event/tos/bucket-bj-0720","specversion":"1.0","datacontenttype":"application/octet-stream","data_base64":"eyJldmVudHMiOlt7ImV2ZW50TmFtZSI6InRvczpPYmplY3RDcmVhdGVkOlB1dCIsImV2ZW50U291cmNlIjoidG9zIiwiZXZlbnRUaW1lIjoiMjAyNS0wNy0yNlQxMToyNTo1M1oiLCJldmVudFZlcnNpb24iOiIxLjAiLCJ0b3MiOnsiYnVja2V0Ijp7InRybiI6InRybjp0b3M6OjpidWNrZXQtYmotMDcyMCIsIm5hbWUiOiJidWNrZXQtYmotMDcyMCIsIm93bmVySWRlbnRpZnkiOiIyMTA5MDg4OTEwIn0sIm9iamVjdCI6eyJlVGFnIjoiXCIxNDkwNzI1NmE5ZDAzZDkxNGRhNjA5ZjgzY2FjZjg0NVwiIiwia2V5IjoicmVjb3JkaW5ncy8yMDI1LzA3LzNmMjZkZTZhLWE2YTEtNDIwOS05ZDc3LTdlZWZiMjM2YjZlMi8zZjI2ZGU2YS1hNmExLTQyMDktOWQ3Ny03ZWVmYjIzNmI2ZTIud2VibSIsInNpemUiOjEzNDQzNX0sInRvc1NjaGVtYVZlcnNpb24iOiIxLjAiLCJydWxlSWQiOiJ0cmlnZ2VyaW5nLWJqIiwicmVnaW9uIjoiY24tYmVpamluZyIsInJlcXVlc3RQYXJhbWV0ZXJzIjp7InNvdXJjZUlQQWRkcmVzcyI6IjE2Ny4yMjAuMjMzLjIxMDo0MjA0MCJ9LCJyZXNwb25zZUVsZW1lbnRzIjp7InJlcXVlc3RJZCI6Ijg3ZDkwMTg0YmI0MWE0Y2Y2ODg0YmI0MS1iMjNlNjM3LTF1ZmQySC1QdU8tY2ItdG9zLTFhei1mcm9udC1hemEtMSJ9LCJ1c2VySWRlbnRpdHkiOnsicHJpbmNpcGFsSWQiOiJ0cm46aWFtOjoyMTA5MDg4OTEwOnJvb3QifX19XX0=","consumergroup":"faas-ljen5kvx_q4rtaynr","key":"","maxretrynum":"10","offset":"0","partition":"2","retriesforbadstatusrequests":"1","topic":"faas-ljen5kvx","eventType":"cloudevent","isBase64Encoded":false,"data":{"events":[{"eventName":"tos:ObjectCreated:Put","eventSource":"tos","eventTime":"2025-07-26T11:25:53Z","eventVersion":"1.0","tos":{"bucket":{"trn":"trn:tos:::bucket-bj-0720","name":"bucket-bj-0720","ownerIdentify":"2109088910"},"object":{"eTag":"\"14907256a9d03d914da609f83cacf845\"","key":"recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm","size":134435},"tosSchemaVersion":"1.0","ruleId":"triggering-bj","region":"cn-beijing","requestParameters":{"sourceIPAddress":"167.220.233.210:42040"},"responseElements":{"requestId":"87d90184bb41a4cf6884bb41-b23e637-1ufd2H-PuO-cb-tos-1az-front-aza-1"},"userIdentity":{"principalId":"trn:iam::2109088910:root"}}}]}}
+fileUrl https://bucket-bj-0720.tos-cn-beijing.volces.com/recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm
+Object key: recordings/2025/07/3f26de6a-a6a1-4209-9d77-7eefb236b6e2/3f26de6a-a6a1-4209-9d77-7eefb236b6e2.webm
+Extracted Recording ID: 3f26de6a-a6a1-4209-9d77-7eefb236b6e2
+Request ID: 1b1e8dce-3167-4b82-90d8-6808860e226f
+任务提交响应： {
+  statusCode: '20000000',
+  message: 'OK',
+  logid: '20250726192634B2BF84B6F02F3472D6D3',
+  data
