@@ -1,6 +1,8 @@
 // 🔧 新架构：ASR轮询服务
 require('dotenv').config();
 const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 // ASR配置
 const ASR_CONFIG = {
@@ -64,6 +66,144 @@ function makeHttpsRequest(url, options, postData = null) {
     
     req.end();
   });
+}
+
+// 🎯 提取说话人信息
+function extractSpeakerInfo(utterances) {
+  if (!utterances || utterances.length === 0) {
+    return {
+      speaker_count: 0,
+      speakers: [],
+      summary: '未检测到说话人信息'
+    };
+  }
+  
+  // 统计说话人
+  const speakerStats = {};
+  const speakerSegments = [];
+  
+  utterances.forEach((utterance, index) => {
+    const speaker = utterance.additions?.speaker || 'unknown';
+    const startTime = utterance.start_time || 0;
+    const endTime = utterance.end_time || 0;
+    const duration = endTime - startTime;
+    const text = utterance.text || '';
+    
+    // 统计说话人时长和片段数
+    if (!speakerStats[speaker]) {
+      speakerStats[speaker] = {
+        id: speaker,
+        total_duration: 0,
+        segment_count: 0,
+        words_count: 0,
+        first_appear: startTime,
+        last_appear: endTime
+      };
+    }
+    
+    speakerStats[speaker].total_duration += duration;
+    speakerStats[speaker].segment_count += 1;
+    speakerStats[speaker].words_count += text.length;
+    speakerStats[speaker].last_appear = endTime;
+    
+    // 记录每个说话片段
+    speakerSegments.push({
+      index: index,
+      speaker: speaker,
+      start_time: startTime,
+      end_time: endTime,
+      duration: duration,
+      text: text,
+      text_length: text.length
+    });
+  });
+  
+  // 转换为数组并排序（按首次出现时间）
+  const speakers = Object.values(speakerStats).sort((a, b) => a.first_appear - b.first_appear);
+  
+  // 生成摘要
+  const speakerCount = speakers.length;
+  let summary = '';
+  
+  if (speakerCount === 0) {
+    summary = '未检测到说话人';
+  } else if (speakerCount === 1) {
+    summary = '检测到1个说话人';
+  } else {
+    const totalDuration = speakers.reduce((sum, s) => sum + s.total_duration, 0);
+    const mainSpeaker = speakers.reduce((max, s) => s.total_duration > max.total_duration ? s : max);
+    summary = `检测到${speakerCount}个说话人，主要说话人: ${mainSpeaker.id} (${Math.round(mainSpeaker.total_duration/totalDuration*100)}%时长)`;
+  }
+  
+  return {
+    speaker_count: speakerCount,
+    speakers: speakers,
+    segments: speakerSegments,
+    summary: summary,
+    analysis: {
+      total_segments: utterances.length,
+      speakers_detected: speakerCount,
+      main_speaker: speakers.length > 0 ? speakers[0].id : null
+    }
+  };
+}
+
+// 保存完整ASR响应到调试文件
+function saveAsrResponseToDebugFile(recordingId, requestId, fullResponse) {
+  try {
+    // 使用时间戳和随机数生成唯一文件名
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const randomId = Math.random().toString(36).substring(2, 8);
+    const debugFileName = `asr_response_${timestamp}_${randomId}.json`;
+    const debugFilePath = path.join(__dirname, '..', 'debug', debugFileName);
+    
+    // 创建调试记录
+    const debugRecord = {
+      timestamp: new Date().toISOString(),
+      recording_id: recordingId,
+      request_id: requestId,
+      full_response: fullResponse,
+      response_size: JSON.stringify(fullResponse).length,
+      file_name: debugFileName
+    };
+    
+    // 直接写入新文件，避免并发冲突
+    fs.writeFileSync(debugFilePath, JSON.stringify(debugRecord, null, 2), 'utf8');
+    console.log(`🐛 完整ASR响应已保存到调试文件: ${debugFilePath}`);
+    
+    // 异步清理旧的调试文件（保留最近20个文件）
+    setTimeout(() => {
+      try {
+        const debugDir = path.join(__dirname, '..', 'debug');
+        const files = fs.readdirSync(debugDir)
+          .filter(file => file.startsWith('asr_response_') && file.endsWith('.json'))
+          .map(file => ({
+            name: file,
+            path: path.join(debugDir, file),
+            mtime: fs.statSync(path.join(debugDir, file)).mtime
+          }))
+          .sort((a, b) => b.mtime - a.mtime); // 按修改时间降序排列
+        
+        // 删除超过20个的旧文件
+        if (files.length > 20) {
+          const filesToDelete = files.slice(20);
+          filesToDelete.forEach(file => {
+            try {
+              fs.unlinkSync(file.path);
+              console.log(`🗑️ 已清理旧调试文件: ${file.name}`);
+            } catch (deleteError) {
+              console.warn(`⚠️ 清理调试文件失败: ${file.name}`, deleteError.message);
+            }
+          });
+        }
+      } catch (cleanupError) {
+        console.warn('⚠️ 清理旧调试文件时出错:', cleanupError.message);
+      }
+    }, 1000); // 1秒后执行清理
+    
+  } catch (error) {
+    console.error('❌ 保存ASR响应调试文件失败:', error);
+  }
 }
 
 // 查询ASR结果
@@ -130,15 +270,23 @@ function startAsrPolling(recordingId, requestId, db) {
     try {
       const result = await queryAsrResult(requestId);
       
+      // 无论成功还是失败，都保存完整响应用于调试
+      saveAsrResponseToDebugFile(recordingId, requestId, result);
+      
       if (result.statusCode === '20000000') {
         // 成功获取结果
         clearInterval(pollInterval);
         console.log(`🎉 ASR转录完成! recordingId: ${recordingId}`);
         
+        // 提取说话人信息
+        const utterances = result.data.result?.utterances || [];
+        const speakerInfo = extractSpeakerInfo(utterances);
+        
         const transcriptionData = {
           text: result.data.result?.text || '',
-          utterances: result.data.result?.utterances || [],
+          utterances: utterances,
           audio_info: result.data.audio_info || {},
+          speaker_info: speakerInfo,  // 🎯 新增：说话人信息
           completed_at: new Date().toISOString(),
           source: 'polling',
           request_id: requestId,
@@ -147,11 +295,18 @@ function startAsrPolling(recordingId, requestId, db) {
         };
         
         console.log(`📝 转录文本预览: ${transcriptionData.text.substring(0, 100)}...`);
+        console.log(`🎤 检测到 ${speakerInfo.speaker_count} 个说话人`);
         
-        // 更新数据库 - 根据recording_id匹配记录
+        // 更新数据库 - 根据recording_id匹配记录，包含说话人信息
         db.run(
-          `UPDATE recordings SET transcription = ?, status = ? WHERE recording_id = ?`,
-          [JSON.stringify(transcriptionData), 'completed', recordingId],
+          `UPDATE recordings SET transcription = ?, status = ?, speaker_count = ?, speaker_info = ? WHERE recording_id = ?`,
+          [
+            JSON.stringify(transcriptionData), 
+            'completed', 
+            speakerInfo.speaker_count,
+            JSON.stringify(speakerInfo),
+            recordingId
+          ],
           function(err) {
             if (err) {
               console.error('❌ 更新转录结果失败:', err);
@@ -197,5 +352,6 @@ function startAsrPolling(recordingId, requestId, db) {
 module.exports = {
   startAsrPolling,
   queryAsrResult,
+  extractSpeakerInfo,  // 🎯 新增：导出说话人信息提取函数
   ASR_CONFIG
 };

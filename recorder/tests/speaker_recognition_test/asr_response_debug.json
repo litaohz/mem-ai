@@ -1,0 +1,302 @@
+{
+  "statusCode": "20000000",
+  "message": "OK",
+  "logid": "20250729231136DCA2BE5B03FAAF8C66E7",
+  "data": {
+    "audio_info": {
+      "duration": 13260
+    },
+    "result": {
+      "additions": {
+        "duration": "13260"
+      },
+      "text": "你好。你好。你叫什么名字？你叫什么名字？我叫李涛涛，你叫李涛涛，我叫大涛涛。OK 行，先这样。哦，哎？",
+      "utterances": [
+        {
+          "additions": {
+            "speaker": "1"
+          },
+          "end_time": 1620,
+          "start_time": 1020,
+          "text": "你好。",
+          "words": [
+            {
+              "confidence": 0,
+              "end_time": 1220,
+              "start_time": 1020,
+              "text": "你"
+            },
+            {
+              "confidence": 0,
+              "end_time": 1620,
+              "start_time": 1220,
+              "text": "好"
+            }
+          ]
+        },
+        {
+          "additions": {
+            "speaker": "1"
+          },
+          "end_time": 2180,
+          "start_time": 1620,
+          "text": "你好。",
+          "words": [
+            {
+              "confidence": 0,
+              "end_time": 1860,
+              "start_time": 1620,
+              "text": "你"
+            },
+            {
+              "confidence": 0,
+              "end_time": 2180,
+              "start_time": 1860,
+              "text": "好"
+            }
+          ]
+        },
+        {
+          "additions": {
+            "speaker": "1"
+          },
+          "end_time": 3420,
+          "start_time": 2380,
+          "text": "你叫什么名字？",
+          "words": [
+            {
+              "confidence": 0,
+              "end_time": 2700,
+              "start_time": 2380,
+              "text": "你"
+            },
+            {
+              "confidence": 0,
+              "end_time": 2860,
+              "start_time": 2700,
+              "text": "叫"
+            },
+            {
+              "confidence": 0,
+              "end_time": 2980,
+              "start_time": 2860,
+              "text": "什"
+            },
+            {
+              "confidence": 0,
+              "end_time": 3140,
+              "start_time": 2980,
+              "text": "么"
+            },
+            {
+              "confidence": 0,
+              "end_time": 3260,
+              "start_time": 3140,
+              "text": "名"
+            },
+            {
+              "confidence": 0,
+              "end_time": 3420,
+              "start_time": 3260,
+              "text": "字"
+            }
+          ]
+        },
+        {
+          "additions": {
+            "speaker": "1"
+          },
+          "end_time": 4620,
+          "start_time": 3660,
+          "text": "你叫什么名字？",
+          "words": [
+            {
+              "confidence": 0,
+              "end_time": 3940,
+              "start_time": 3660,
+              "text": "你"
+            },
+            {
+              "confidence": 0,
+              "end_time": 4100,
+              "start_time": 3940,
+              "text": "叫"
+            },
+            {
+              "confidence": 0,
+              "end_time": 4180,
+              "start_time": 4100,
+              "text": "什"
+            },
+            {
+              "confidence": 0,
+              "end_time": 4300,
+              "start_time": 4180,
+              "text": "么"
+            },
+            {
+              "confidence": 0,
+              "end_time": 4460,
+              "start_time": 4300,
+              "text": "名"
+            },
+            {
+              "confidence": 0,
+              "end_time": 4620,
+              "start_time": 4460,
+              "text": "字"
+            }
+          ]
+        },
+        {
+          "additions": {
+            "speaker": "2"
+          },
+          "end_time": 12220,
+          "start_time": 4740,
+          "text": "我叫李涛涛，你叫李涛涛，我叫大涛涛。OK 行，先这样。哦，哎？",
+          "words": [
+            {
+              "confidence": 0,
+              "end_time": 4980,
+              "start_time": 4740,
+              "text": "我"
+            },
+            {
+              "confidence": 0,
+              "end_time": 5140,
+              "start_time": 4980,
+              "text": "叫"
+            },
+            {
+              "confidence": 0,
+              "end_time": 5300,
+              "start_time": 5140,
+              "text": "李"
+            },
+            {
+              "confidence": 0,
+              "end_time": 5420,
+              "start_time": 5380,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 5660,
+              "start_time": 5620,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 6020,
+              "start_time": 5780,
+              "text": "你"
+            },
+            {
+              "confidence": 0,
+              "end_time": 6140,
+              "start_time": 6020,
+              "text": "叫"
+            },
+            {
+              "confidence": 0,
+              "end_time": 6300,
+              "start_time": 6180,
+              "text": "李"
+            },
+            {
+              "confidence": 0,
+              "end_time": 6420,
+              "start_time": 6380,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 6620,
+              "start_time": 6580,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 8140,
+              "start_time": 7620,
+              "text": "我"
+            },
+            {
+              "confidence": 0,
+              "end_time": 8380,
+              "start_time": 8140,
+              "text": "叫"
+            },
+            {
+              "confidence": 0,
+              "end_time": 9580,
+              "start_time": 9140,
+              "text": "大"
+            },
+            {
+              "confidence": 0,
+              "end_time": 9740,
+              "start_time": 9700,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 9940,
+              "start_time": 9900,
+              "text": "涛"
+            },
+            {
+              "confidence": 0,
+              "end_time": 10500,
+              "start_time": 10300,
+              "text": "OK"
+            },
+            {
+              "confidence": 0,
+              "end_time": -1,
+              "start_time": -1,
+              "text": " "
+            },
+            {
+              "confidence": 0,
+              "end_time": 11020,
+              "start_time": 10740,
+              "text": "行"
+            },
+            {
+              "confidence": 0,
+              "end_time": 11260,
+              "start_time": 11020,
+              "text": "先"
+            },
+            {
+              "confidence": 0,
+              "end_time": 11420,
+              "start_time": 11260,
+              "text": "这"
+            },
+            {
+              "confidence": 0,
+              "end_time": 11740,
+              "start_time": 11420,
+              "text": "样"
+            },
+            {
+              "confidence": 0,
+              "end_time": 11980,
+              "start_time": 11940,
+              "text": "哦"
+            },
+            {
+              "confidence": 0,
+              "end_time": 12220,
+              "start_time": 12180,
+              "text": "哎"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

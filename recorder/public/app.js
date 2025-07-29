@@ -268,6 +268,8 @@ class RoseVoiceApp {
       
       // 解析转录结果预览
       let preview = '正在转写中...';
+      let speakerPreview = '';
+      
       if (recording.transcription && recording.status === 'completed') {
         try {
           const transcriptionData = JSON.parse(recording.transcription);
@@ -283,6 +285,15 @@ class RoseVoiceApp {
       } else if (recording.transcription) {
         // 如果有转录数据但状态不是completed，显示原始数据
         preview = recording.transcription.substring(0, 80) + '...';
+      }
+      
+      // 🎯 显示说话人信息预览
+      if (recording.speaker_count && recording.speaker_count > 0) {
+        if (recording.speaker_count === 1) {
+          speakerPreview = ' • 👤 单人对话';
+        } else {
+          speakerPreview = ` • 👥 ${recording.speaker_count}人对话`;
+        }
       }
       
       const statusClass = `status-${recording.status}`;
@@ -313,7 +324,7 @@ class RoseVoiceApp {
             </div>
           </div>
           <div class="recording-date">${date}</div>
-          <div class="recording-preview">${preview}</div>
+          <div class="recording-preview">${preview}${speakerPreview}</div>
         </div>
       `;
     }).join('');
@@ -447,8 +458,45 @@ class RoseVoiceApp {
           transcriptionText = transcriptionData.text;
           hasDetailedResult = true;
           
-          // 如果有分句信息，显示更详细的结果
-          if (transcriptionData.utterances && transcriptionData.utterances.length > 0) {
+          // 🎯 显示说话人信息
+          if (transcriptionData.speaker_info && transcriptionData.speaker_info.speaker_count > 0) {
+            const speakerInfo = transcriptionData.speaker_info;
+            transcriptionText += '\n\n' + '='.repeat(50);
+            transcriptionText += '\n🎤 说话人分析报告\n';
+            transcriptionText += '='.repeat(50);
+            transcriptionText += `\n📊 ${speakerInfo.summary}`;
+            
+            // 显示说话人详细统计
+            if (speakerInfo.speakers && speakerInfo.speakers.length > 0) {
+              transcriptionText += '\n\n👥 说话人详细统计：';
+              speakerInfo.speakers.forEach((speaker, index) => {
+                const durationSeconds = Math.floor(speaker.total_duration / 1000);
+                const minutes = Math.floor(durationSeconds / 60);
+                const seconds = durationSeconds % 60;
+                const timeStr = minutes > 0 ? `${minutes}分${seconds}秒` : `${seconds}秒`;
+                
+                transcriptionText += `\n  ${index + 1}. 说话人${speaker.id}：`;
+                transcriptionText += `\n     🕐 发言时长: ${timeStr}`;
+                transcriptionText += `\n     📝 发言片段: ${speaker.segment_count}个`;
+                transcriptionText += `\n     📄 文字数量: ${speaker.words_count}字`;
+              });
+            }
+            
+            // 显示对话流程（按时间顺序）
+            if (transcriptionData.utterances && transcriptionData.utterances.length > 0) {
+              transcriptionText += '\n\n🎭 对话流程（按时间顺序）：';
+              transcriptionData.utterances.forEach((utterance, index) => {
+                const startSec = Math.floor(utterance.start_time / 1000);
+                const endSec = Math.floor(utterance.end_time / 1000);
+                const speaker = utterance.additions?.speaker || 'unknown';
+                transcriptionText += `\n\n[${startSec}s-${endSec}s] 说话人${speaker}:`;
+                transcriptionText += `\n${utterance.text}`;
+              });
+            }
+          }
+          
+          // 如果有分句信息但没有说话人信息，显示普通分句
+          else if (transcriptionData.utterances && transcriptionData.utterances.length > 0) {
             const utterancesList = transcriptionData.utterances.map((utterance, index) => {
               return `[${Math.floor(utterance.start_time/1000)}s-${Math.floor(utterance.end_time/1000)}s] ${utterance.text}`;
             }).join('\n');
@@ -938,4 +986,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (Math.random() > 0.5) {
     addFloatingElements();
   }
-}); 
+});

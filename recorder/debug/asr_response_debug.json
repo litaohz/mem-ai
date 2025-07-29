@@ -1,0 +1,1241 @@
+{
+  "responses": [
+    {
+      "timestamp": "2025-07-29T09:46:22.979Z",
+      "recording_id": "1753782335291-363162955",
+      "request_id": "7bf4e9dd-fd00-443b-93a7-5a1c9c97d287",
+      "full_response": {
+        "statusCode": "20000000",
+        "message": "OK",
+        "logid": "20250729174622C86B833ED4138E014114",
+        "data": {
+          "audio_info": {
+            "duration": 10440
+          },
+          "result": {
+            "additions": {
+              "duration": "10440"
+            },
+            "text": "今天天气仍然不错，现在是17:45我们即将开始新的功能。哦耶！",
+            "utterances": [
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 8500,
+                "start_time": 700,
+                "text": "今天天气仍然不错，现在是17:45我们即将开始新的功能。哦耶！",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 940,
+                    "start_time": 700,
+                    "text": "今"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 980,
+                    "start_time": 940,
+                    "text": "天"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1420,
+                    "start_time": 1020,
+                    "text": "天"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1620,
+                    "start_time": 1420,
+                    "text": "气"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1820,
+                    "start_time": 1660,
+                    "text": "仍"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2020,
+                    "start_time": 1820,
+                    "text": "然"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2180,
+                    "start_time": 2020,
+                    "text": "不"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2420,
+                    "start_time": 2180,
+                    "text": "错"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2620,
+                    "start_time": 2420,
+                    "text": "现"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2780,
+                    "start_time": 2620,
+                    "text": "在"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3020,
+                    "start_time": 2780,
+                    "text": "是"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4660,
+                    "start_time": 3020,
+                    "text": "17:45"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5580,
+                    "start_time": 5140,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5780,
+                    "start_time": 5580,
+                    "text": "们"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5980,
+                    "start_time": 5820,
+                    "text": "即"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6180,
+                    "start_time": 5980,
+                    "text": "将"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6420,
+                    "start_time": 6180,
+                    "text": "开"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6540,
+                    "start_time": 6420,
+                    "text": "始"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6820,
+                    "start_time": 6540,
+                    "text": "新"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6980,
+                    "start_time": 6820,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7180,
+                    "start_time": 6980,
+                    "text": "功"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7620,
+                    "start_time": 7180,
+                    "text": "能"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8060,
+                    "start_time": 7980,
+                    "text": "哦"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8500,
+                    "start_time": 8380,
+                    "text": "耶"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "response_size": 1828
+    },
+    {
+      "timestamp": "2025-07-29T10:18:56.061Z",
+      "recording_id": "1753784286391-754686358",
+      "request_id": "b03417e2-0e6e-4d33-8a39-28756273441f",
+      "full_response": {
+        "statusCode": "20000000",
+        "message": "OK",
+        "logid": "202507291818554F4A7B19DE19D216042D",
+        "data": {
+          "audio_info": {
+            "duration": 9600
+          },
+          "result": {
+            "additions": {
+              "duration": "9600"
+            },
+            "text": "现在开始我们的录音，新的版本加了说话人的区别，所以说，开始。",
+            "utterances": [
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 9110,
+                "start_time": 1550,
+                "text": "现在开始我们的录音，新的版本加了说话人的区别，所以说，开始。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 1950,
+                    "start_time": 1550,
+                    "text": "现"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2350,
+                    "start_time": 1950,
+                    "text": "在"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2830,
+                    "start_time": 2390,
+                    "text": "开"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3070,
+                    "start_time": 2830,
+                    "text": "始"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3310,
+                    "start_time": 3070,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3510,
+                    "start_time": 3310,
+                    "text": "们"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3910,
+                    "start_time": 3510,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4230,
+                    "start_time": 3950,
+                    "text": "录"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4590,
+                    "start_time": 4230,
+                    "text": "音"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4870,
+                    "start_time": 4630,
+                    "text": "新"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4990,
+                    "start_time": 4870,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5150,
+                    "start_time": 4990,
+                    "text": "版"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5310,
+                    "start_time": 5150,
+                    "text": "本"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5470,
+                    "start_time": 5350,
+                    "text": "加"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5630,
+                    "start_time": 5550,
+                    "text": "了"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5910,
+                    "start_time": 5710,
+                    "text": "说"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6110,
+                    "start_time": 5910,
+                    "text": "话"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6390,
+                    "start_time": 6110,
+                    "text": "人"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6790,
+                    "start_time": 6390,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7150,
+                    "start_time": 6790,
+                    "text": "区"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7510,
+                    "start_time": 7150,
+                    "text": "别"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7750,
+                    "start_time": 7510,
+                    "text": "所"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7910,
+                    "start_time": 7750,
+                    "text": "以"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8310,
+                    "start_time": 7910,
+                    "text": "说"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8830,
+                    "start_time": 8470,
+                    "text": "开"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9110,
+                    "start_time": 8830,
+                    "text": "始"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "response_size": 1949
+    },
+    {
+      "timestamp": "2025-07-29T10:27:32.294Z",
+      "recording_id": "1753784804508-12235786",
+      "request_id": "30a0203e-6186-47bb-aadd-52402d7fafe2",
+      "full_response": {
+        "statusCode": "20000000",
+        "message": "OK",
+        "logid": "202507291827312AF7E69FAC08321BAA3B",
+        "data": {
+          "audio_info": {
+            "duration": 13260
+          },
+          "result": {
+            "additions": {
+              "duration": "13260"
+            },
+            "text": "你好。你好。你叫什么名字？你叫什么名字？我叫李涛涛，你叫李涛涛，我叫大涛涛。OK 行，先这样。哦，哎？",
+            "utterances": [
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 1620,
+                "start_time": 1020,
+                "text": "你好。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 1220,
+                    "start_time": 1020,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1620,
+                    "start_time": 1220,
+                    "text": "好"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 2180,
+                "start_time": 1620,
+                "text": "你好。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 1860,
+                    "start_time": 1620,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2180,
+                    "start_time": 1860,
+                    "text": "好"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 3420,
+                "start_time": 2380,
+                "text": "你叫什么名字？",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 2700,
+                    "start_time": 2380,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2860,
+                    "start_time": 2700,
+                    "text": "叫"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2980,
+                    "start_time": 2860,
+                    "text": "什"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3140,
+                    "start_time": 2980,
+                    "text": "么"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3260,
+                    "start_time": 3140,
+                    "text": "名"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 3420,
+                    "start_time": 3260,
+                    "text": "字"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 4620,
+                "start_time": 3660,
+                "text": "你叫什么名字？",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 3940,
+                    "start_time": 3660,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4100,
+                    "start_time": 3940,
+                    "text": "叫"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4180,
+                    "start_time": 4100,
+                    "text": "什"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4300,
+                    "start_time": 4180,
+                    "text": "么"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4460,
+                    "start_time": 4300,
+                    "text": "名"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4620,
+                    "start_time": 4460,
+                    "text": "字"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "2"
+                },
+                "end_time": 12220,
+                "start_time": 4740,
+                "text": "我叫李涛涛，你叫李涛涛，我叫大涛涛。OK 行，先这样。哦，哎？",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 4980,
+                    "start_time": 4740,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5140,
+                    "start_time": 4980,
+                    "text": "叫"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5300,
+                    "start_time": 5140,
+                    "text": "李"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5420,
+                    "start_time": 5380,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5660,
+                    "start_time": 5620,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6020,
+                    "start_time": 5780,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6140,
+                    "start_time": 6020,
+                    "text": "叫"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6300,
+                    "start_time": 6180,
+                    "text": "李"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6420,
+                    "start_time": 6380,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6620,
+                    "start_time": 6580,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8140,
+                    "start_time": 7620,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8380,
+                    "start_time": 8140,
+                    "text": "叫"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9580,
+                    "start_time": 9140,
+                    "text": "大"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9740,
+                    "start_time": 9700,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9940,
+                    "start_time": 9900,
+                    "text": "涛"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 10500,
+                    "start_time": 10300,
+                    "text": "OK"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": -1,
+                    "start_time": -1,
+                    "text": " "
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11020,
+                    "start_time": 10740,
+                    "text": "行"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11260,
+                    "start_time": 11020,
+                    "text": "先"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11420,
+                    "start_time": 11260,
+                    "text": "这"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11740,
+                    "start_time": 11420,
+                    "text": "样"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11980,
+                    "start_time": 11940,
+                    "text": "哦"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 12220,
+                    "start_time": 12180,
+                    "text": "哎"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "response_size": 3147
+    },
+    {
+      "timestamp": "2025-07-29T15:15:59.078Z",
+      "recording_id": "1753802109301-331751778",
+      "request_id": "230b5626-7feb-4d78-8696-217cdbe60e6f",
+      "full_response": {
+        "statusCode": "20000000",
+        "message": "OK",
+        "logid": "202507292315580556171C80230E897331",
+        "data": {
+          "audio_info": {
+            "duration": 10680
+          },
+          "result": {
+            "additions": {
+              "duration": "10680"
+            },
+            "text": "你好，棒棋。你好，棒棋。我很好，棒棋。我也很好，棒棋。行，我们开始测试。好的，棒棋。",
+            "utterances": [
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 1440,
+                "start_time": 200,
+                "text": "你好，棒棋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 400,
+                    "start_time": 200,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 880,
+                    "start_time": 400,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1160,
+                    "start_time": 1120,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1440,
+                    "start_time": 1400,
+                    "text": "棋"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "2"
+                },
+                "end_time": 2880,
+                "start_time": 1880,
+                "text": "你好，棒棋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 2200,
+                    "start_time": 1880,
+                    "text": "你"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2440,
+                    "start_time": 2200,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2600,
+                    "start_time": 2560,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2880,
+                    "start_time": 2840,
+                    "text": "棋"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 4720,
+                "start_time": 3280,
+                "text": "我很好，棒棋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 3840,
+                    "start_time": 3280,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4000,
+                    "start_time": 3840,
+                    "text": "很"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4320,
+                    "start_time": 4000,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4480,
+                    "start_time": 4400,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 4720,
+                    "start_time": 4680,
+                    "text": "棋"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "2"
+                },
+                "end_time": 6320,
+                "start_time": 5000,
+                "text": "我也很好，棒棋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 5400,
+                    "start_time": 5000,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5560,
+                    "start_time": 5400,
+                    "text": "也"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5720,
+                    "start_time": 5560,
+                    "text": "很"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5960,
+                    "start_time": 5720,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6120,
+                    "start_time": 6040,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6320,
+                    "start_time": 6280,
+                    "text": "棋"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 9240,
+                "start_time": 6720,
+                "text": "行，我们开始测试。好的，棒棋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 7080,
+                    "start_time": 6720,
+                    "text": "行"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7240,
+                    "start_time": 7080,
+                    "text": "我"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7360,
+                    "start_time": 7240,
+                    "text": "们"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7480,
+                    "start_time": 7360,
+                    "text": "开"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7640,
+                    "start_time": 7480,
+                    "text": "始"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7840,
+                    "start_time": 7640,
+                    "text": "测"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8040,
+                    "start_time": 7840,
+                    "text": "试"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8560,
+                    "start_time": 8200,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8840,
+                    "start_time": 8560,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9000,
+                    "start_time": 8920,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9240,
+                    "start_time": 9200,
+                    "text": "棋"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "response_size": 2554
+    },
+    {
+      "timestamp": "2025-07-29T15:19:19.741Z",
+      "recording_id": "1753802299421-157570684",
+      "request_id": "512544ad-2e03-48a5-97a9-6f3b6d3a1ddf",
+      "full_response": {
+        "statusCode": "20000000",
+        "message": "OK",
+        "logid": "202507292319195DEC5D5552F0F68AFD15",
+        "data": {
+          "audio_info": {
+            "duration": 15660
+          },
+          "result": {
+            "additions": {
+              "duration": "15660"
+            },
+            "text": "1234567。7654321。1234567。89 10 11 12 13 14好的，谢谢。棒棍。好。棒蛋。",
+            "utterances": [
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 2470,
+                "start_time": 1160,
+                "text": "1234567。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 1390,
+                    "start_time": 1160,
+                    "text": "1"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1550,
+                    "start_time": 1390,
+                    "text": "2"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1710,
+                    "start_time": 1550,
+                    "text": "3"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1870,
+                    "start_time": 1710,
+                    "text": "4"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 1990,
+                    "start_time": 1870,
+                    "text": "5"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2190,
+                    "start_time": 1990,
+                    "text": "6"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 2470,
+                    "start_time": 2190,
+                    "text": "7"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "2"
+                },
+                "end_time": 6800,
+                "start_time": 5610,
+                "text": "7654321。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 5760,
+                    "start_time": 5610,
+                    "text": "7"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 5920,
+                    "start_time": 5760,
+                    "text": "6"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6040,
+                    "start_time": 5920,
+                    "text": "5"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6200,
+                    "start_time": 6040,
+                    "text": "4"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6360,
+                    "start_time": 6200,
+                    "text": "3"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6560,
+                    "start_time": 6360,
+                    "text": "2"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 6800,
+                    "start_time": 6560,
+                    "text": "1"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 8560,
+                "start_time": 7040,
+                "text": "1234567。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 7360,
+                    "start_time": 7040,
+                    "text": "1"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7480,
+                    "start_time": 7360,
+                    "text": "2"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7640,
+                    "start_time": 7480,
+                    "text": "3"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7800,
+                    "start_time": 7640,
+                    "text": "4"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 7920,
+                    "start_time": 7800,
+                    "text": "5"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8120,
+                    "start_time": 7920,
+                    "text": "6"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 8560,
+                    "start_time": 8120,
+                    "text": "7"
+                  }
+                ]
+              },
+              {
+                "additions": {
+                  "speaker": "1"
+                },
+                "end_time": 14840,
+                "start_time": 9280,
+                "text": "89 10 11 12 13 14好的，谢谢。棒棍。好。棒蛋。",
+                "words": [
+                  {
+                    "confidence": 0,
+                    "end_time": 9640,
+                    "start_time": 9280,
+                    "text": "8"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 9880,
+                    "start_time": 9640,
+                    "text": "9"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 10080,
+                    "start_time": 9880,
+                    "text": " 10"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 10360,
+                    "start_time": 10120,
+                    "text": " 11"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": -1,
+                    "start_time": -1,
+                    "text": " "
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 10640,
+                    "start_time": 10360,
+                    "text": "12"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": -1,
+                    "start_time": -1,
+                    "text": " "
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 10920,
+                    "start_time": 10640,
+                    "text": "13"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": -1,
+                    "start_time": -1,
+                    "text": " "
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11320,
+                    "start_time": 10920,
+                    "text": "14"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 11840,
+                    "start_time": 11560,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 12040,
+                    "start_time": 11840,
+                    "text": "的"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 12200,
+                    "start_time": 12040,
+                    "text": "谢"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 12440,
+                    "start_time": 12280,
+                    "text": "谢"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 12920,
+                    "start_time": 12880,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 13240,
+                    "start_time": 13200,
+                    "text": "棍"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 14200,
+                    "start_time": 13680,
+                    "text": "好"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 14560,
+                    "start_time": 14520,
+                    "text": "棒"
+                  },
+                  {
+                    "confidence": 0,
+                    "end_time": 14840,
+                    "start_time": 14800,
+                    "text": "蛋"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "response_size": 3144
+    }
+  ],
+  "created_at": "2025-07-29",
+  "description": "ASR完整响应数据调试文件",
+  "last_updated": "2025-07-29T15:19:19.743Z"
+}

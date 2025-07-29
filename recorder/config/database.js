@@ -18,7 +18,7 @@ function initDatabase(callback) {
 
   // 创建表结构
   db.serialize(() => {
-    // 创建recordings表，包含新的request_id和recording_id字段
+    // 创建recordings表，包含新的request_id和recording_id字段，以及说话人信息字段
     db.run(`CREATE TABLE IF NOT EXISTS recordings (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       filename TEXT NOT NULL,
@@ -30,7 +30,9 @@ function initDatabase(callback) {
       tos_object_key TEXT,
       tos_file_url TEXT,
       request_id TEXT,
-      tos_upload_status TEXT DEFAULT 'pending'
+      tos_upload_status TEXT DEFAULT 'pending',
+      speaker_count INTEGER DEFAULT 0,
+      speaker_info TEXT
     )`, (err) => {
       if (err) {
         console.error('❌ 创建recordings表失败:', err);
@@ -48,6 +50,8 @@ function initDatabase(callback) {
 
       const hasRequestId = rows.some(row => row.name === 'request_id');
       const hasRecordingId = rows.some(row => row.name === 'recording_id');
+      const hasSpeakerCount = rows.some(row => row.name === 'speaker_count');
+      const hasSpeakerInfo = rows.some(row => row.name === 'speaker_info');
       
       let pendingOperations = 0;
       
@@ -84,6 +88,36 @@ function initDatabase(callback) {
                 console.log('✅ 现有记录的recording_id已更新');
               }
             });
+          }
+          pendingOperations--;
+          if (pendingOperations === 0) checkAndCreateIndexes();
+        });
+      }
+
+      // 添加speaker_count字段（如果不存在）
+      if (!hasSpeakerCount) {
+        console.log('🔧 添加speaker_count字段...');
+        pendingOperations++;
+        db.run("ALTER TABLE recordings ADD COLUMN speaker_count INTEGER DEFAULT 0", (err) => {
+          if (err) {
+            console.error('❌ 添加speaker_count字段失败:', err);
+          } else {
+            console.log('✅ speaker_count字段已添加');
+          }
+          pendingOperations--;
+          if (pendingOperations === 0) checkAndCreateIndexes();
+        });
+      }
+
+      // 添加speaker_info字段（如果不存在）
+      if (!hasSpeakerInfo) {
+        console.log('🔧 添加speaker_info字段...');
+        pendingOperations++;
+        db.run("ALTER TABLE recordings ADD COLUMN speaker_info TEXT", (err) => {
+          if (err) {
+            console.error('❌ 添加speaker_info字段失败:', err);
+          } else {
+            console.log('✅ speaker_info字段已添加');
           }
           pendingOperations--;
           if (pendingOperations === 0) checkAndCreateIndexes();

@@ -43,6 +43,16 @@ const upload = multer({
 
 // 🗄️ 数据库初始化
 let db;
+
+// 数据库检查中间件
+function checkDatabase(req, res, next) {
+  if (!db) {
+    console.error('❌ 数据库未初始化');
+    return res.status(500).json({ error: '数据库未就绪，请稍后重试' });
+  }
+  next();
+}
+
 initDatabase((database) => {
   db = database;
   console.log('✅ 数据库初始化完成');
@@ -64,7 +74,7 @@ app.get('/', (req, res) => {
 });
 
 // 📤 录音上传接口
-app.post('/upload', upload.single('recording'), async (req, res) => {
+app.post('/upload', checkDatabase, upload.single('recording'), async (req, res) => {
   try {
     console.log('\n🎙️ 收到录音上传请求');
     
@@ -169,7 +179,7 @@ app.post('/upload', upload.single('recording'), async (req, res) => {
 });
 
 // 🚀 启动ASR轮询接口 (新架构核心)
-app.post('/api/start-polling', (req, res) => {
+app.post('/api/start-polling', checkDatabase, (req, res) => {
   try {
     console.log('\n🔄 收到启动轮询请求');
     console.log('📥 请求体:', JSON.stringify(req.body, null, 2));
@@ -220,8 +230,14 @@ app.post('/api/start-polling', (req, res) => {
 });
 
 // 📋 获取录音列表
-app.get('/api/recordings', (req, res) => {
+app.get('/api/recordings', checkDatabase, (req, res) => {
   try {
+    // 检查数据库是否已初始化 - 这个检查现在由中间件处理，但保留作为双重保险
+    if (!db) {
+      console.error('❌ 数据库未初始化');
+      return res.status(500).json({ error: '数据库未就绪，请稍后重试' });
+    }
+
     db.all(`
       SELECT 
         id, 
@@ -230,6 +246,8 @@ app.get('/api/recordings', (req, res) => {
         transcription, 
         status, 
         request_id,
+        speaker_count,
+        speaker_info,
         created_at 
       FROM recordings 
       ORDER BY created_at DESC 
@@ -240,9 +258,11 @@ app.get('/api/recordings', (req, res) => {
         return res.status(500).json({ error: '查询失败' });
       }
       
-      // 解析转录数据
+      // 解析转录数据和说话人信息
       const recordings = rows.map(row => {
         let transcriptionData = null;
+        let speakerData = null;
+        
         if (row.transcription) {
           try {
             transcriptionData = JSON.parse(row.transcription);
@@ -251,9 +271,18 @@ app.get('/api/recordings', (req, res) => {
           }
         }
         
+        if (row.speaker_info) {
+          try {
+            speakerData = JSON.parse(row.speaker_info);
+          } catch (e) {
+            speakerData = { summary: '说话人信息解析失败' };
+          }
+        }
+        
         return {
           ...row,
-          transcriptionData
+          transcriptionData,
+          speakerData
         };
       });
       
@@ -266,8 +295,14 @@ app.get('/api/recordings', (req, res) => {
 });
 
 // 🔍 获取单个录音详情
-app.get('/api/recordings/:id', (req, res) => {
+app.get('/api/recordings/:id', checkDatabase, (req, res) => {
   const recordingId = req.params.id;
+  
+  // 检查数据库是否已初始化 - 这个检查现在由中间件处理，但保留作为双重保险
+  if (!db) {
+    console.error('❌ 数据库未初始化');
+    return res.status(500).json({ error: '数据库未就绪，请稍后重试' });
+  }
   
   db.get(`
     SELECT * FROM recordings WHERE id = ?
@@ -281,8 +316,10 @@ app.get('/api/recordings/:id', (req, res) => {
       return res.status(404).json({ error: '录音不存在' });
     }
     
-    // 解析转录数据
+    // 解析转录数据和说话人信息
     let transcriptionData = null;
+    let speakerData = null;
+    
     if (row.transcription) {
       try {
         transcriptionData = JSON.parse(row.transcription);
@@ -291,11 +328,174 @@ app.get('/api/recordings/:id', (req, res) => {
       }
     }
     
+    if (row.speaker_info) {
+      try {
+        speakerData = JSON.parse(row.speaker_info);
+      } catch (e) {
+        speakerData = { summary: '说话人信息解析失败' };
+      }
+    }
+    
     res.json({
       ...row,
-      transcriptionData
+      transcriptionData,
+      speakerData
     });
   });
+});
+
+// 🎵 音频文件服务
+app.get('/api/audio/:filename', (req, res) => {
+  try {
+    const filename = req.params.filename;
+    const filePath = path.join(uploadDir, filename);
+    
+    // 检查文件是否存在
+    if (!fs.existsSync(filePath)) {
+      console.error(`❌ 音频文件不存在: ${filename}`);
+      return res.status(404).json({ error: '音频文件不存在' });
+    }
+    
+    // 设置正确的 Content-Type
+    const ext = path.extname(filename).toLowerCase();
+    let contentType = 'audio/webm';
+    
+    switch (ext) {
+      case '.webm':
+        contentType = 'audio/webm';
+        break;
+      case '.wav':
+        contentType = 'audio/wav';
+        break;
+      case '.mp3':
+        contentType = 'audio/mpeg';
+        break;
+      case '.ogg':
+        contentType = 'audio/ogg';
+        break;
+      case '.m4a':
+        contentType = 'audio/mp4';
+        break;
+      default:
+        contentType = 'audio/webm';
+    }
+    
+    // 设置响应头
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Accept-Ranges', 'bytes');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    
+    // 发送文件
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        console.error('❌ 发送音频文件失败:', err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: '音频文件发送失败' });
+        }
+      }
+    });
+    
+    console.log(`🎵 已提供音频文件: ${filename}`);
+    
+  } catch (error) {
+    console.error('❌ 音频文件服务错误:', error);
+    res.status(500).json({ error: '音频文件服务错误' });
+  }
+});
+
+// 🌐 获取TOS预签名URL
+app.get('/api/tos-url/:id', (req, res) => {
+  try {
+    const recordingId = req.params.id;
+    
+    // 查询录音信息
+    db.get(`
+      SELECT tos_file_url, tos_upload_status, filename 
+      FROM recordings 
+      WHERE id = ?
+    `, [recordingId], (err, row) => {
+      if (err) {
+        console.error('❌ 查询录音失败:', err);
+        return res.status(500).json({ error: '查询失败' });
+      }
+      
+      if (!row) {
+        return res.status(404).json({ error: '录音不存在' });
+      }
+      
+      // 检查TOS状态
+      if (row.tos_upload_status !== 'completed' || !row.tos_file_url) {
+        return res.status(404).json({ 
+          error: 'TOS文件不可用',
+          tos_status: row.tos_upload_status 
+        });
+      }
+      
+      // 返回TOS URL（这里应该是预签名URL，但为了简化先直接返回）
+      res.json({
+        url: row.tos_file_url,
+        filename: row.filename
+      });
+      
+      console.log(`🌐 已提供TOS URL: ${recordingId}`);
+    });
+    
+  } catch (error) {
+    console.error('❌ 获取TOS URL错误:', error);
+    res.status(500).json({ error: 'TOS URL服务错误' });
+  }
+});
+
+// 📄 下载转写文本
+app.get('/api/download/:id', (req, res) => {
+  try {
+    const recordingId = req.params.id;
+    
+    // 查询录音信息
+    db.get(`
+      SELECT transcription, original_name, status 
+      FROM recordings 
+      WHERE id = ?
+    `, [recordingId], (err, row) => {
+      if (err) {
+        console.error('❌ 查询录音失败:', err);
+        return res.status(500).json({ error: '查询失败' });
+      }
+      
+      if (!row) {
+        return res.status(404).json({ error: '录音不存在' });
+      }
+      
+      if (!row.transcription || row.status !== 'completed') {
+        return res.status(400).json({ error: '转写未完成或无转写内容' });
+      }
+      
+      // 解析转录数据
+      let transcriptionText = row.transcription;
+      try {
+        const transcriptionData = JSON.parse(row.transcription);
+        if (transcriptionData.text) {
+          transcriptionText = transcriptionData.text;
+        }
+      } catch (e) {
+        // 使用原始文本
+      }
+      
+      // 设置下载响应头
+      const filename = `${row.original_name}_transcription.txt`;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+      
+      // 发送文本内容
+      res.send(transcriptionText);
+      
+      console.log(`📄 已下载转写文本: ${filename}`);
+    });
+    
+  } catch (error) {
+    console.error('❌ 下载转写文本错误:', error);
+    res.status(500).json({ error: '下载服务错误' });
+  }
 });
 
 // 🗑️ 删除录音

@@ -205,7 +205,9 @@ exports.handler = async (event, context) => {
         enable_speaker_info: true,
         enable_punc: true,
         enable_itn: true,
-        show_utterances: true
+        show_utterances: true,
+        with_speaker_info: true,  // 🎯 新增：启用说话人识别
+        speaker_number: 'auto'    // 🎯 新增：自动检测说话人数量
         // 🚀 新架构：不设置回调，后端会通过轮询获取结果
       }
     }, requestId);
