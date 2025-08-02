@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngrok 连接测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #6c757d; cursor: not-allowed; }
+        .log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.ok { background-color: #28a745; color: white; }
+        .status.fail { background-color: #dc3545; color: white; }
+        .status.pending { background-color: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Ngrok 连接诊断工具</h1>
+        
+        <div class="test-section info">
+            <h3>📋 当前配置</h3>
+            <p><strong>当前URL:</strong> <span id="currentUrl"></span></p>
+            <p><strong>Ngrok URL:</strong> <input type="text" id="ngrokUrl" placeholder="https://your-domain.ngrok-free.app" style="width: 300px;"></p>
+            <button onclick="updateNgrokUrl()">更新URL</button>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 连接测试</h3>
+            <button onclick="runAllTests()">运行所有测试</button>
+            <button onclick="clearLogs()">清除日志</button>
+            
+            <div style="margin-top: 15px;">
+                <div>
+                    <span class="status pending" id="healthStatus">待测试</span>
+                    <strong>健康检查:</strong> <span id="healthResult">未测试</span>
+                    <button onclick="testHealth()">测试</button>
+                </div>
+                <br>
+                <div>
+                    <span class="status pending" id="corsStatus">待测试</span>
+                    <strong>CORS测试:</strong> <span id="corsResult">未测试</span>
+                    <button onclick="testCors()">测试</button>
+                </div>
+                <br>
+                <div>
+                    <span class="status pending" id="uploadStatus">待测试</span>
+                    <strong>上传测试:</strong> <span id="uploadResult">未测试</span>
+                    <button onclick="testUpload()">测试</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📝 测试日志</h3>
+            <div id="testLog" class="log">等待测试...\n</div>
+        </div>
+
+        <div class="test-section">
+            <h3>🛠️ 故障排除建议</h3>
+            <div id="troubleshooting">
+                <ul>
+                    <li>确保ngrok正在运行: <code>ngrok http 3000</code></li>
+                    <li>检查ngrok URL是否正确</li>
+                    <li>确保本地服务器在3000端口运行</li>
+                    <li>检查防火墙设置</li>
+                    <li>尝试在ngrok URL后添加 <code>?ngrok-skip-browser-warning=true</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ngrokBaseUrl = '';
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('currentUrl').textContent = window.location.origin;
+            
+            // 尝试从URL参数获取ngrok URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const ngrokParam = urlParams.get('ngrok');
+            if (ngrokParam) {
+                document.getElementById('ngrokUrl').value = ngrokParam;
+                updateNgrokUrl();
+            }
+        });
+
+        function log(message) {
+            const logElement = document.getElementById('testLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function clearLogs() {
+            document.getElementById('testLog').textContent = '';
+        }
+
+        function updateStatus(testName, status, message) {
+            const statusElement = document.getElementById(testName + 'Status');
+            const resultElement = document.getElementById(testName + 'Result');
+            
+            statusElement.className = 'status ' + (status === 'ok' ? 'ok' : status === 'fail' ? 'fail' : 'pending');
+            statusElement.textContent = status === 'ok' ? '✅' : status === 'fail' ? '❌' : '⏳';
+            resultElement.textContent = message;
+        }
+
+        function updateNgrokUrl() {
+            const url = document.getElementById('ngrokUrl').value.trim();
+            if (url) {
+                ngrokBaseUrl = url.replace(/\/$/, ''); // 移除末尾斜杠
+                log(`📝 更新Ngrok URL: ${ngrokBaseUrl}`);
+            } else {
+                log('❌ 请输入有效的Ngrok URL');
+            }
+        }
+
+        async function testHealth() {
+            if (!ngrokBaseUrl) {
+                log('❌ 请先设置Ngrok URL');
+                return;
+            }
+
+            log('🔍 测试健康检查接口...');
+            updateStatus('health', 'pending', '测试中...');
+
+            try {
+                const response = await fetch(`${ngrokBaseUrl}/health`, {
+                    method: 'GET',
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ 健康检查成功: ${JSON.stringify(data)}`);
+                    updateStatus('health', 'ok', '连接正常');
+                } else {
+                    log(`❌ 健康检查失败: ${response.status} ${response.statusText}`);
+                    updateStatus('health', 'fail', `${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ 健康检查错误: ${error.message}`);
+                updateStatus('health', 'fail', error.message);
+            }
+        }
+
+        async function testCors() {
+            if (!ngrokBaseUrl) {
+                log('❌ 请先设置Ngrok URL');
+                return;
+            }
+
+            log('🔍 测试CORS配置...');
+            updateStatus('cors', 'pending', '测试中...');
+
+            try {
+                const response = await fetch(`${ngrokBaseUrl}/api/recordings`, {
+                    method: 'GET',
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
+
+                if (response.ok) {
+                    log(`✅ CORS测试成功`);
+                    updateStatus('cors', 'ok', 'CORS配置正常');
+                } else {
+                    log(`❌ CORS测试失败: ${response.status} ${response.statusText}`);
+                    updateStatus('cors', 'fail', `${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ CORS测试错误: ${error.message}`);
+                updateStatus('cors', 'fail', error.message);
+            }
+        }
+
+        async function testUpload() {
+            if (!ngrokBaseUrl) {
+                log('❌ 请先设置Ngrok URL');
+                return;
+            }
+
+            log('🔍 测试文件上传...');
+            updateStatus('upload', 'pending', '测试中...');
+
+            try {
+                // 创建一个小的测试文件
+                const testContent = new Blob(['test audio content'], { type: 'audio/webm' });
+                const formData = new FormData();
+                formData.append('recording', testContent, 'test-recording.webm');
+
+                const response = await fetch(`${ngrokBaseUrl}/upload`, {
+                    method: 'POST',
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ 上传测试成功: ${JSON.stringify(data)}`);
+                    updateStatus('upload', 'ok', '上传功能正常');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ 上传测试失败: ${response.status} ${response.statusText}`);
+                    log(`错误详情: ${errorText}`);
+                    updateStatus('upload', 'fail', `${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ 上传测试错误: ${error.message}`);
+                updateStatus('upload', 'fail', error.message);
+            }
+        }
+
+        async function runAllTests() {
+            if (!ngrokBaseUrl) {
+                updateNgrokUrl();
+                if (!ngrokBaseUrl) {
+                    log('❌ 请先设置Ngrok URL');
+                    return;
+                }
+            }
+
+            log('🚀 开始运行所有测试...');
+            
+            await testHealth();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testCors();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testUpload();
+            
+            log('🏁 所有测试完成');
+        }
+    </script>
+</body>
+</html>

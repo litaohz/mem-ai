@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>录音重试管理器</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #56ab2f, #a8e6cf);
+      color: white;
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #007bff;
+    }
+
+    .recordings-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+
+    .recording-card {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .recording-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .recording-card.failed {
+      border-color: #dc3545;
+      background: #fff5f5;
+    }
+
+    .recording-card.processing {
+      border-color: #ffc107;
+      background: #fffbf0;
+    }
+
+    .recording-card.success {
+      border-color: #28a745;
+      background: #f0fff4;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .card-id {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #495057;
+    }
+
+    .card-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-failed {
+      background: #dc3545;
+      color: white;
+    }
+
+    .status-processing {
+      background: #ffc107;
+      color: #212529;
+    }
+
+    .status-success {
+      background: #28a745;
+      color: white;
+    }
+
+    .card-info {
+      margin-bottom: 15px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #6c757d;
+    }
+
+    .info-value {
+      color: #495057;
+      text-align: right;
+      max-width: 60%;
+      word-break: break-all;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      border: 1px solid #f5c6cb;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #6c757d;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 10px;
+      color: #495057;
+    }
+
+    @media (max-width: 768px) {
+      .recordings-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔄 录音重试管理器</h1>
+      <p>管理和重试失败的录音上传</p>
+    </div>
+
+    <div class="content">
+      <div class="actions">
+        <button class="btn btn-primary" onclick="loadFailedRecordings()">
+          <span>🔍</span> 刷新列表
+        </button>
+        <button class="btn btn-success" onclick="retryAllFailed()" id="retryAllBtn">
+          <span>🚀</span> 重试所有失败
+        </button>
+        <button class="btn btn-warning" onclick="clearSuccessful()">
+          <span>🧹</span> 清理成功记录
+        </button>
+      </div>
+
+      <div class="status" id="statusMessage" style="display: none;">
+        <div id="statusText"></div>
+      </div>
+
+      <div id="loadingIndicator" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <div>正在加载录音列表...</div>
+      </div>
+
+      <div id="recordingsContainer">
+        <div class="empty-state">
+          <h3>📋 点击"刷新列表"开始</h3>
+          <p>查看需要重试的录音</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let failedRecordings = [];
+
+    // 显示状态消息
+    function showStatus(message, type = 'info') {
+      const statusEl = document.getElementById('statusMessage');
+      const statusText = document.getElementById('statusText');
+      
+      statusText.textContent = message;
+      statusEl.style.display = 'block';
+      statusEl.style.borderLeftColor = type === 'error' ? '#dc3545' : 
+                                       type === 'success' ? '#28a745' : '#007bff';
+      
+      setTimeout(() => {
+        statusEl.style.display = 'none';
+      }, 5000);
+    }
+
+    // 加载失败的录音列表
+    async function loadFailedRecordings() {
+      const loadingEl = document.getElementById('loadingIndicator');
+      const containerEl = document.getElementById('recordingsContainer');
+      
+      loadingEl.style.display = 'block';
+      containerEl.innerHTML = '';
+
+      try {
+        const response = await fetch('/api/recordings');
+        const recordings = await response.json();
+        
+        // 筛选失败的录音
+        failedRecordings = recordings.filter(r => 
+          !r.tos_upload_status || 
+          r.tos_upload_status === 'failed' || 
+          r.error_message
+        );
+
+        loadingEl.style.display = 'none';
+        renderRecordings();
+        
+        showStatus(`找到 ${failedRecordings.length} 个需要处理的录音`, 'info');
+
+      } catch (error) {
+        loadingEl.style.display = 'none';
+        showStatus('加载录音列表失败: ' + error.message, 'error');
+        console.error('加载失败:', error);
+      }
+    }
+
+    // 渲染录音列表
+    function renderRecordings() {
+      const container = document.getElementById('recordingsContainer');
+      
+      if (failedRecordings.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>🎉 太棒了！</h3>
+            <p>没有找到失败的录音</p>
+          </div>
+        `;
+        return;
+      }
+
+      const recordingsHtml = failedRecordings.map(recording => {
+        const status = getRecordingStatus(recording);
+        const statusClass = getStatusClass(status);
+        
+        return `
+          <div class="recording-card ${statusClass}" id="recording-${recording.id}">
+            <div class="card-header">
+              <div class="card-id">录音 #${recording.id}</div>
+              <div class="card-status ${getStatusBadgeClass(status)}">${status}</div>
+            </div>
+            
+            <div class="card-info">
+              <div class="info-row">
+                <span class="info-label">文件名:</span>
+                <span class="info-value">${recording.filename || '未知'}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">原始名:</span>
+                <span class="info-value">${recording.original_name || '未知'}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">创建时间:</span>
+                <span class="info-value">${new Date(recording.created_at).toLocaleString()}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">上传状态:</span>
+                <span class="info-value">${recording.tos_upload_status || '未知'}</span>
+              </div>
+            </div>
+
+            ${recording.error_message ? `
+              <div class="error-message">
+                <strong>错误信息:</strong> ${recording.error_message}
+              </div>
+            ` : ''}
+
+            <div class="card-actions">
+              <button class="btn btn-primary btn-small" onclick="retryRecording(${recording.id})" id="retry-btn-${recording.id}">
+                <span>🔄</span> 重试
+              </button>
+              <button class="btn btn-warning btn-small" onclick="deleteRecording(${recording.id})">
+                <span>🗑️</span> 删除
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `<div class="recordings-grid">${recordingsHtml}</div>`;
+    }
+
+    // 获取录音状态
+    function getRecordingStatus(recording) {
+      if (recording.error_message) return '失败';
+      if (!recording.tos_upload_status) return '未处理';
+      if (recording.tos_upload_status === 'failed') return '失败';
+      if (recording.tos_upload_status === 'uploading') return '上传中';
+      return '未知';
+    }
+
+    // 获取状态样式类
+    function getStatusClass(status) {
+      switch (status) {
+        case '失败': return 'failed';
+        case '上传中': return 'processing';
+        case '成功': return 'success';
+        default: return 'failed';
+      }
+    }
+
+    // 获取状态徽章样式类
+    function getStatusBadgeClass(status) {
+      switch (status) {
+        case '失败': return 'status-failed';
+        case '上传中': return 'status-processing';
+        case '成功': return 'status-success';
+        default: return 'status-failed';
+      }
+    }
+
+    // 重试单个录音
+    async function retryRecording(recordingId) {
+      const button = document.getElementById(`retry-btn-${recordingId}`);
+      const originalText = button.innerHTML;
+      
+      try {
+        button.innerHTML = '⏳ 重试中...';
+        button.disabled = true;
+        
+        showStatus(`正在重试录音 #${recordingId}...`, 'info');
+        
+        const response = await fetch(`/api/retry/${recordingId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showStatus(`录音 #${recordingId} 重试成功`, 'success');
+          
+          // 3秒后刷新列表
+          setTimeout(() => {
+            loadFailedRecordings();
+          }, 3000);
+        } else {
+          throw new Error(result.error || '重试失败');
+        }
+        
+      } catch (error) {
+        console.error('重试失败:', error);
+        showStatus(`重试录音 #${recordingId} 失败: ${error.message}`, 'error');
+        
+        button.innerHTML = originalText;
+        button.disabled = false;
+      }
+    }
+
+    // 重试所有失败的录音
+    async function retryAllFailed() {
+      if (failedRecordings.length === 0) {
+        showStatus('没有需要重试的录音', 'info');
+        return;
+      }
+
+      const retryBtn = document.getElementById('retryAllBtn');
+      const originalText = retryBtn.innerHTML;
+      
+      try {
+        retryBtn.disabled = true;
+        retryBtn.innerHTML = '<span>⏳</span> 重试中...';
+
+        showStatus(`开始重试 ${failedRecordings.length} 个录音...`, 'info');
+        
+        const response = await fetch('/api/retry-all', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showStatus('批量重试完成', 'success');
+          
+          // 5秒后刷新列表
+          setTimeout(() => {
+            loadFailedRecordings();
+          }, 5000);
+        } else {
+          throw new Error(result.error || '批量重试失败');
+        }
+        
+      } catch (error) {
+        console.error('批量重试失败:', error);
+        showStatus('批量重试失败: ' + error.message, 'error');
+      } finally {
+        retryBtn.disabled = false;
+        retryBtn.innerHTML = originalText;
+      }
+    }
+
+    // 删除录音
+    async function deleteRecording(recordingId) {
+      if (!confirm(`确定要删除录音 #${recordingId} 吗？此操作不可撤销。`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/recordings/${recordingId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          showStatus(`录音 #${recordingId} 已删除`, 'success');
+          loadFailedRecordings(); // 重新加载列表
+        } else {
+          throw new Error('删除请求失败');
+        }
+      } catch (error) {
+        showStatus(`删除录音 #${recordingId} 失败: ${error.message}`, 'error');
+      }
+    }
+
+    // 清理成功的记录
+    function clearSuccessful() {
+      if (!confirm('确定要清理所有成功的录音记录吗？这将删除本地文件和数据库记录，操作不可恢复！')) {
+        return;
+      }
+      
+      showStatus('清理功能开发中...', 'info');
+    }
+
+    // 页面加载时自动加载列表
+    window.addEventListener('load', () => {
+      loadFailedRecordings();
+    });
+    
+    // 每30秒自动刷新一次
+    setInterval(loadFailedRecordings, 30000);
+  </script>
+</body>
+</html>

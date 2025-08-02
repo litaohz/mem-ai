@@ -372,6 +372,10 @@ class RoseVoiceApp {
   // 打开录音详情模态框
   async openRecordingModal(recordingId) {
     try {
+      // 立即显示模态框和加载状态
+      this.elements.modal.style.display = 'flex';
+      this.showModalLoading();
+      
       const response = await fetch(`/api/recordings/${recordingId}`);
       if (!response.ok) {
         throw new Error('获取录音详情失败');
@@ -379,11 +383,69 @@ class RoseVoiceApp {
       
       this.currentRecording = await response.json();
       this.renderModal();
-      this.elements.modal.style.display = 'flex';
+      
+      // 异步加载音频，不阻塞界面显示
+      if (this.currentRecording.status === 'completed') {
+        this.loadAudioAsync();
+      }
       
     } catch (error) {
       console.error('获取录音详情错误:', error);
       this.showToast('获取录音详情失败', 'error');
+      this.elements.modal.style.display = 'none';
+    }
+  }
+
+  // 显示模态框加载状态
+  showModalLoading() {
+    this.elements.modalTitle.textContent = '加载中...';
+    this.elements.transcriptionText.textContent = '正在加载录音详情，请稍候...';
+    this.elements.audioPlayer.style.display = 'none';
+    this.elements.downloadBtn.disabled = true;
+    this.elements.copyBtn.disabled = true;
+  }
+
+  // 异步加载音频
+  async loadAudioAsync() {
+    try {
+      // 显示音频加载状态
+      this.elements.audioPlayer.style.display = 'block';
+      const audioLoadingText = document.createElement('div');
+      audioLoadingText.className = 'audio-loading';
+      audioLoadingText.textContent = '🎵 正在加载音频...';
+      audioLoadingText.style.textAlign = 'center';
+      audioLoadingText.style.padding = '10px';
+      audioLoadingText.style.fontSize = '14px';
+      audioLoadingText.style.opacity = '0.7';
+      
+      // 在音频播放器前插入加载提示
+      this.elements.audioPlayer.insertBefore(audioLoadingText, this.elements.audioElement);
+      
+      // 优先使用TOS URL，如果不可用则使用本地文件
+      if (this.currentRecording.tos_upload_status === 'completed' && this.currentRecording.tos_file_url) {
+        await this.loadTosAudioUrl(this.currentRecording.id);
+      } else {
+        this.elements.audioElement.src = `/api/audio/${this.currentRecording.filename}`;
+        console.log('🎵 从本地加载音频');
+      }
+      
+      // 移除加载提示
+      if (audioLoadingText.parentNode) {
+        audioLoadingText.parentNode.removeChild(audioLoadingText);
+      }
+      
+    } catch (error) {
+      console.error('音频加载失败:', error);
+      // 移除加载提示并显示错误
+      const loadingElement = document.querySelector('.audio-loading');
+      if (loadingElement && loadingElement.parentNode) {
+        loadingElement.textContent = '❌ 音频加载失败';
+        setTimeout(() => {
+          if (loadingElement.parentNode) {
+            loadingElement.parentNode.removeChild(loadingElement);
+          }
+        }, 3000);
+      }
     }
   }
 
@@ -394,18 +456,10 @@ class RoseVoiceApp {
     // 设置标题
     this.elements.modalTitle.textContent = recording.original_name;
     
-    // 设置音频播放器
+    // 音频播放器状态（音频加载在loadAudioAsync中处理）
     if (recording.status === 'completed') {
+      // 音频将在loadAudioAsync中异步加载
       this.elements.audioPlayer.style.display = 'block';
-      
-      // 优先使用TOS URL，如果不可用则使用本地文件
-      if (recording.tos_upload_status === 'completed' && recording.tos_file_url) {
-        // 从TOS播放（需要预签名URL）
-        this.loadTosAudioUrl(recording.id);
-      } else {
-        // 从本地播放
-        this.elements.audioElement.src = `/api/audio/${recording.filename}`;
-      }
     } else {
       this.elements.audioPlayer.style.display = 'none';
     }
@@ -458,28 +512,39 @@ class RoseVoiceApp {
           transcriptionText = transcriptionData.text;
           hasDetailedResult = true;
           
-          // 🎯 显示说话人信息
-          if (transcriptionData.speaker_info && transcriptionData.speaker_info.speaker_count > 0) {
-            const speakerInfo = transcriptionData.speaker_info;
+          // 🎯 显示说话人信息 - 从后端解析的 speakerData 中获取
+          if (recording.speakerData && recording.speaker_count > 0) {
+            const speakerInfo = recording.speakerData;
             transcriptionText += '\n\n' + '='.repeat(50);
             transcriptionText += '\n🎤 说话人分析报告\n';
             transcriptionText += '='.repeat(50);
-            transcriptionText += `\n📊 ${speakerInfo.summary}`;
+            transcriptionText += `\n📊 ${speakerInfo.summary || `检测到 ${recording.speaker_count} 个说话人`}`;
             
-            // 显示说话人详细统计
-            if (speakerInfo.speakers && speakerInfo.speakers.length > 0) {
-              transcriptionText += '\n\n👥 说话人详细统计：';
+            // 显示说话人列表
+            if (speakerInfo.speakers && Array.isArray(speakerInfo.speakers) && speakerInfo.speakers.length > 0) {
+              transcriptionText += '\n\n👥 说话人列表：';
               speakerInfo.speakers.forEach((speaker, index) => {
-                const durationSeconds = Math.floor(speaker.total_duration / 1000);
-                const minutes = Math.floor(durationSeconds / 60);
-                const seconds = durationSeconds % 60;
-                const timeStr = minutes > 0 ? `${minutes}分${seconds}秒` : `${seconds}秒`;
-                
-                transcriptionText += `\n  ${index + 1}. 说话人${speaker.id}：`;
-                transcriptionText += `\n     🕐 发言时长: ${timeStr}`;
-                transcriptionText += `\n     📝 发言片段: ${speaker.segment_count}个`;
-                transcriptionText += `\n     📄 文字数量: ${speaker.words_count}字`;
+                // 将speaker_1转换为说话人1，speaker_2转换为说话人2，以此类推
+                const displaySpeaker = speaker.replace(/^speaker_(\d+)$/, '说话人$1');
+                transcriptionText += `\n  ${index + 1}. ${displaySpeaker}`;
               });
+            }
+            
+            // 显示说话人映射信息（如果有的话）
+            if (speakerInfo.speakerMapping && speakerInfo.speakerMapping.rules && speakerInfo.speakerMapping.rules.length > 0) {
+              transcriptionText += '\n\n🔧 说话人映射详情：';
+              transcriptionText += '\n  基于规则的智能映射已应用';
+              
+              // 显示应用的规则
+              speakerInfo.speakerMapping.rules.forEach((rule, index) => {
+                transcriptionText += `\n  规则${index + 1}: ${rule.description}`;
+              });
+              
+              // 显示映射统计
+              if (speakerInfo.speakerMapping.statistics) {
+                const stats = speakerInfo.speakerMapping.statistics;
+                transcriptionText += `\n  📊 映射统计: ${stats.originalSpeakers} 个原始标识 → ${stats.globalSpeakers} 个全局说话人`;
+              }
             }
             
             // 显示对话流程（按时间顺序）
@@ -488,7 +553,9 @@ class RoseVoiceApp {
               transcriptionData.utterances.forEach((utterance, index) => {
                 const startSec = Math.floor(utterance.start_time / 1000);
                 const endSec = Math.floor(utterance.end_time / 1000);
-                const speaker = utterance.additions?.speaker || 'unknown';
+                const rawSpeaker = utterance.additions?.speaker || 'unknown';
+                // 将speaker_1转换为1，speaker_2转换为2，以此类推
+                const speaker = rawSpeaker.replace(/^speaker_(\d+)$/, '$1');
                 transcriptionText += `\n\n[${startSec}s-${endSec}s] 说话人${speaker}:`;
                 transcriptionText += `\n${utterance.text}`;
               });
@@ -540,26 +607,38 @@ class RoseVoiceApp {
     } else {
       this.elements.downloadBtn.style.opacity = '1';
       this.elements.copyBtn.style.opacity = '1';
+      
+      // 设置按钮事件处理器
+      this.elements.downloadBtn.onclick = () => this.downloadTranscription();
+      this.elements.copyBtn.onclick = () => this.copyTranscription();
     }
   }
 
   // 加载TOS音频URL
   async loadTosAudioUrl(recordingId) {
     try {
+      console.log('🔄 正在获取云端音频URL...');
       const response = await fetch(`/api/tos-url/${recordingId}`);
       if (response.ok) {
         const data = await response.json();
         this.elements.audioElement.src = data.url;
-        console.log('🎵 从云端加载音频');
+        console.log('🎵 从云端加载音频成功');
+        
+        // 预加载音频
+        this.elements.audioElement.preload = 'metadata';
+        
+        return true;
       } else {
-        // 降级到本地文件
-        this.elements.audioElement.src = `/api/audio/${this.currentRecording.filename}`;
-        console.log('🎵 降级到本地音频文件');
+        console.warn('获取云端音频URL失败，降级到本地文件');
+        throw new Error('TOS URL获取失败');
       }
     } catch (error) {
       console.error('加载TOS音频URL失败:', error);
       // 降级到本地文件
       this.elements.audioElement.src = `/api/audio/${this.currentRecording.filename}`;
+      this.elements.audioElement.preload = 'metadata';
+      console.log('🎵 降级到本地音频文件');
+      return false;
     }
   }
 

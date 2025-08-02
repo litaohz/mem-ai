@@ -64,7 +64,12 @@ recorder/
 ├── 📄 server.js              # Express 服务器
 ├── 📄 package.json           # 项目配置
 ├── 📄 .env.example          # 环境变量模板
-├── 📄 prd.md               # 产品需求文档
+├── 📁 docs/                # 📚 项目文档
+│   ├── 📄 README.md        # 文档索引
+│   ├── 📄 architect.md     # 系统架构设计
+│   ├── 📄 prd.md          # 产品需求文档
+│   ├── 📄 SPEAKER_RECOGNITION.md  # 说话人识别文档
+│   └── 📄 CHUNKING_OPTIMIZATION.md # 分包优化文档
 ├── 📁 config/              # 配置文件
 │   └── 📄 tos-config.js    # TOS 配置和功能
 ├── 📁 public/              # 前端静态文件
@@ -127,6 +132,15 @@ PORT=3000                               # 应用端口
   bucket: 'rose-voice-recordings'       // 存储桶名称
 }
 ```
+
+## 📚 文档
+
+完整的技术文档位于 [`docs/`](./docs/) 目录：
+
+- **[系统架构](./docs/architect.md)** - 完整的系统架构设计和技术实现
+- **[分包优化](./docs/CHUNKING_OPTIMIZATION.md)** - 最新的时长分包优化方案
+- **[说话人识别](./docs/SPEAKER_RECOGNITION.md)** - 说话人识别功能文档
+- **[产品需求](./docs/prd.md)** - 详细的产品需求文档
 
 ## 🎯 功能说明
 
@@ -262,4 +276,4 @@ MIT License - 详见 LICENSE 文件
 
 ---
 
-**🌹 享受你的 Rose Voice 录音转写之旅！** 现在支持云端存储，数据更安全！ 
+**🌹 享受你的 Rose Voice 录音转写之旅！** 现在支持云端存储，数据更安全！

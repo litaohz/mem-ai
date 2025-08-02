@@ -18,7 +18,7 @@ function initDatabase(callback) {
 
   // 创建表结构
   db.serialize(() => {
-    // 创建recordings表，包含新的request_id和recording_id字段，以及说话人信息字段
+    // 创建recordings表，包含所有必要字段
     db.run(`CREATE TABLE IF NOT EXISTS recordings (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       filename TEXT NOT NULL,
@@ -32,107 +32,26 @@ function initDatabase(callback) {
       request_id TEXT,
       tos_upload_status TEXT DEFAULT 'pending',
       speaker_count INTEGER DEFAULT 0,
-      speaker_info TEXT
+      speaker_info TEXT,
+      session_id TEXT,
+      total_chunks INTEGER DEFAULT 1,
+      completed_chunks INTEGER DEFAULT 0,
+      completed_at DATETIME,
+      error_message TEXT
     )`, (err) => {
       if (err) {
         console.error('❌ 创建recordings表失败:', err);
       } else {
-        console.log('✅ recordings表已创建/验证');
+        console.log('✅ recordings表已创建');
       }
+      
+      // 创建索引
+      createIndexes();
     });
 
-    // 检查并添加缺失的字段和索引
-    db.all("PRAGMA table_info(recordings)", (err, rows) => {
-      if (err) {
-        console.error('❌ 检查表结构失败:', err);
-        return;
-      }
-
-      const hasRequestId = rows.some(row => row.name === 'request_id');
-      const hasRecordingId = rows.some(row => row.name === 'recording_id');
-      const hasSpeakerCount = rows.some(row => row.name === 'speaker_count');
-      const hasSpeakerInfo = rows.some(row => row.name === 'speaker_info');
-      
-      let pendingOperations = 0;
-      
-      // 添加request_id字段（如果不存在）
-      if (!hasRequestId) {
-        console.log('🔧 添加request_id字段...');
-        pendingOperations++;
-        db.run("ALTER TABLE recordings ADD COLUMN request_id TEXT", (err) => {
-          if (err) {
-            console.error('❌ 添加request_id字段失败:', err);
-          } else {
-            console.log('✅ request_id字段已添加');
-          }
-          pendingOperations--;
-          if (pendingOperations === 0) checkAndCreateIndexes();
-        });
-      }
-
-      // 添加recording_id字段（如果不存在）
-      if (!hasRecordingId) {
-        console.log('🔧 添加recording_id字段...');
-        pendingOperations++;
-        db.run("ALTER TABLE recordings ADD COLUMN recording_id TEXT", (err) => {
-          if (err) {
-            console.error('❌ 添加recording_id字段失败:', err);
-          } else {
-            console.log('✅ recording_id字段已添加');
-            
-            // 为现有记录设置recording_id
-            db.run("UPDATE recordings SET recording_id = REPLACE(filename, '.webm', '') WHERE recording_id IS NULL", (updateErr) => {
-              if (updateErr) {
-                console.error('❌ 更新recording_id失败:', updateErr);
-              } else {
-                console.log('✅ 现有记录的recording_id已更新');
-              }
-            });
-          }
-          pendingOperations--;
-          if (pendingOperations === 0) checkAndCreateIndexes();
-        });
-      }
-
-      // 添加speaker_count字段（如果不存在）
-      if (!hasSpeakerCount) {
-        console.log('🔧 添加speaker_count字段...');
-        pendingOperations++;
-        db.run("ALTER TABLE recordings ADD COLUMN speaker_count INTEGER DEFAULT 0", (err) => {
-          if (err) {
-            console.error('❌ 添加speaker_count字段失败:', err);
-          } else {
-            console.log('✅ speaker_count字段已添加');
-          }
-          pendingOperations--;
-          if (pendingOperations === 0) checkAndCreateIndexes();
-        });
-      }
-
-      // 添加speaker_info字段（如果不存在）
-      if (!hasSpeakerInfo) {
-        console.log('🔧 添加speaker_info字段...');
-        pendingOperations++;
-        db.run("ALTER TABLE recordings ADD COLUMN speaker_info TEXT", (err) => {
-          if (err) {
-            console.error('❌ 添加speaker_info字段失败:', err);
-          } else {
-            console.log('✅ speaker_info字段已添加');
-          }
-          pendingOperations--;
-          if (pendingOperations === 0) checkAndCreateIndexes();
-        });
-      }
-
-      // 如果没有待处理的操作，直接检查索引
-      if (pendingOperations === 0) {
-        checkAndCreateIndexes();
-      }
-    });
-
-    // 检查并创建索引的函数
-    function checkAndCreateIndexes() {
-      console.log('🔧 检查并创建索引...');
+    // 创建索引的函数
+    function createIndexes() {
+      console.log('🔧 创建索引...');
       
       // 创建recording_id索引
       db.run("CREATE INDEX IF NOT EXISTS idx_recordings_recording_id ON recordings(recording_id)", (err) => {
@@ -142,7 +61,7 @@ function initDatabase(callback) {
           console.log('✅ recording_id索引已创建');
         }
         
-        // 创建filename索引（可选，用于备用查询）
+        // 创建filename索引
         db.run("CREATE INDEX IF NOT EXISTS idx_recordings_filename ON recordings(filename)", (err) => {
           if (err) {
             console.error('❌ 创建filename索引失败:', err);
@@ -150,9 +69,18 @@ function initDatabase(callback) {
             console.log('✅ filename索引已创建');
           }
           
-          // 数据库初始化完成
-          console.log('✅ 数据库初始化完成');
-          if (callback) callback(db);
+          // 创建status索引
+          db.run("CREATE INDEX IF NOT EXISTS idx_recordings_status ON recordings(status)", (err) => {
+            if (err) {
+              console.error('❌ 创建status索引失败:', err);
+            } else {
+              console.log('✅ status索引已创建');
+            }
+            
+            // 数据库初始化完成
+            console.log('✅ 数据库初始化完成');
+            if (callback) callback(db);
+          });
         });
       });
     }

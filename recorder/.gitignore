@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
-
+tests/
+debug/
+chunks/
 # Database files
 *.db
 
